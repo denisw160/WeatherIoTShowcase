@@ -73,6 +73,19 @@
 
     <!-- Build -->
     <build>
+        <!-- Resources of the application / @xxxxx@ instead of ${xxxxx} -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+        <!-- Properties for replacing -->
+        <filters>
+            <filter>build.properties</filter>
+        </filters>
+
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

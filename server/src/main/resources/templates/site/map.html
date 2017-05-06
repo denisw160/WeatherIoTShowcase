@@ -14,55 +14,52 @@
 <div th:include="fragments/header :: header"></div>
 
 <div class="container">
-    <h2 th:text="#{dashboard.title}">&nbsp;</h2>
-
-    <!--<div class="row">-->
-    <!--<div class="col-md-4">-->
-    <!--<div class="panel panel-default">-->
-    <!--<div class="panel-heading" th:text="#{dashbard.currentorders}">&nbsp;</div>-->
-    <!--<div class="panel-body">-->
-    <!--<div id="gauge-current"></div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="col-md-4">-->
-    <!--<div class="panel panel-default">-->
-    <!--<div class="panel-heading" th:text="#{dashbard.allorders}">&nbsp;</div>-->
-    <!--<div class="panel-body">-->
-    <!--<div id="gauge-states"></div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="col-md-4">-->
-    <!--<div class="panel panel-default">-->
-    <!--<div class="panel-heading" th:text="#{dashbard.errors}">&nbsp;</div>-->
-    <!--<div class="panel-body">-->
-    <!--<div id="gauge-errors"></div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
+    <div class="page-header">
+        <div class="row">
+            <div class="col-lg-8 col-md-7 col-sm-6">
+                <h2 th:text="#{map.title}">&nbsp;</h2>
+                <p class="lead" th:text="#{map.text}">&nbsp;</p>
+            </div>
+        </div>
+    </div>
 </div>
 
+<div class="container">
+    <div class="row">
+        <!--<div id="map"></div>-->
+        <div class="embed-responsive embed-responsive-16by9">
+            <div id="map" class="embed-responsive-item" style="border: 1px solid black"></div>
+        </div>
+    </div>
+</div>
+
+
 <div th:include="fragments/footer :: footer"></div>
-<script type="text/javascript" th:src="@{/assets/js/dashboard.js}"></script>
-<!--<script type="text/javascript" th:inline="javascript">-->
-<!--var i18n = new Map();-->
-<!--i18n.set('dashboard.gauge-current', [[#{dashboard.gauge-current}]]);-->
-<!--i18n.set('dashboard.gauge-current-processed', [[#{dashboard.gauge-current-processed}]]);-->
-<!--i18n.set('dashboard.gauge-errors', [[#{dashboard.gauge-errors}]]);-->
-<!--i18n.set('dashboard.gauge-errors-occurred', [[#{dashboard.gauge-errors-occurred}]]);-->
-<!--i18n.set('dashboard.gauge-states', [[#{dashboard.gauge-states}]]);-->
-<!--i18n.set('dashboard.gauge-states-name', [[#{dashboard.gauge-states-name}]]);-->
-<!--i18n.set('dashboard.gauge-state-open', [[#{dashboard.gauge-state-open}]]);-->
-<!--i18n.set('dashboard.gauge-state-canceled', [[#{dashboard.gauge-state-canceled}]]);-->
-<!--i18n.set('dashboard.gauge-state-completed', [[#{dashboard.gauge-state-completed}]]);-->
-<!--init({-->
-<!--urlCurrent: /*[[@{/rest/orders/current}]]*/ '',-->
-<!--urlErrors: /*[[@{/rest/orders/errors}]]*/ '',-->
-<!--urlStates: /*[[@{/rest/orders/states}]]*/ ''-->
-<!--}, i18n);-->
-<!--</script>-->
+
+<script>
+    var map;
+    function initMap() {
+        console.info("Init map ...");
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 52.376189, lng: 9.740565},
+            zoom: 4
+        });
+        console.info("Init map done.");
+    }
+</script>
+
+
+<script type="text/javascript" async="async" defer="defer"
+        src="https://maps.googleapis.com/maps/api/js?key=@google_api_key@&amp;callback=initMap"></script>
+
+<!--<script type="text/javascript" th:src="@{/assets/js/map.js}"></script>-->
+<script type="text/javascript" th:inline="javascript">
+    //    var i18n = new Map();
+    //    //    i18n.set('dashboard.gauge-current', [[#{dashboard.gauge-current}]]);
+    //    init({
+    //        urlTemperatureMap: /*[[@{/rest/temperaturemap}]]*/ ''
+    //    }, i18n);
+</script>
 
 </body>
 </html>
