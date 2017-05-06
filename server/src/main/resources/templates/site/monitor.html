@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Default meta -->
+    <thymeleaf th:replace="fragments/meta :: head"></thymeleaf>
+
+    <!-- Custom title -->
+    <title th:text="#{application.title}">&nbsp;</title>
+</head>
+
+<body>
+
+<div th:include="fragments/header :: header"></div>
+
+<div class="container">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-lg-8 col-md-7 col-sm-6">
+                <h2 th:text="#{monitor.title}">&nbsp;</h2>
+                <p class="lead" th:text="#{monitor.text}">&nbsp;</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <iframe id="monitor-frame" width="100%" frameborder="0" style="background-color: white" th:src="@{/monitor-ui}">
+        Your browser doesn't support frames.
+    </iframe>
+</div>
+
+<div th:include="fragments/footer :: footer"></div>
+<script type="text/javascript">
+    function resizeFrame() {
+        var frame = $("#monitor-frame");
+        var space = window.innerHeight - frame.offset().top - 15;
+        frame.height(space);
+    }
+
+    jQuery(document).ready(function () {
+        resizeFrame();
+    });
+
+    $(window).resize(function () {
+        resizeFrame();
+    });
+</script>
+
+</body>
+</html>

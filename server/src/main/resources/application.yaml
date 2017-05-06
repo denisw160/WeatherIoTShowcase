@@ -1,0 +1,52 @@
+## Spring Configuration ##
+spring:
+  # Application
+  application:
+    name: @project.name@
+
+  # I18N
+  messages:
+    basename: i18n/messages
+    encoding: windows-1252
+    cache-seconds: 60
+
+  # Thymeleaf
+  thymeleaf:
+    cache: false
+
+## Tomcat ##
+server:
+  port: 8080
+  tomcat:
+    accesslog:
+      enabled: true
+      pattern: '%h %t "%r" %s %b'
+
+## Logging ##
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    me.wirries.weatheriotshowcase.server: DEBUG
+
+## JavaMelody ##
+javamelody:
+  # Enable JavaMelody auto-configuration (optional, default: true)
+  enabled: true
+  # Data source names to exclude from monitoring (optional, comma-separated)
+  #excluded-datasources: secretSource,topSecretSource
+  # Enable monitoring of Spring services and controllers (optional, default: true)
+  spring-monitoring-enabled: true
+  # Initialization parameters for JavaMelody (optional)
+  # See: https://github.com/javamelody/javamelody/wiki/UserGuide#6-optional-parameters
+  init-parameters:
+    # log http requests
+    log: true
+    # to exclude images, css, fonts and js urls from the monitoring:
+    #url-exclude-pattern: (/webjars/.*|/css/.*|/images/.*|/fonts/.*|/js/.*)
+    # to add basic auth:
+    #authorized-users: admin:pwd
+    # to change the default storage directory:
+    #storage-directory: /tmp/javamelody
+    # to change the default "/monitoring" path
+    monitoring-path: /monitor-ui

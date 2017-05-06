@@ -1,0 +1,28 @@
+<!-- Head for pages -->
+<thymeleaf xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+           th:fragment="head" th:remove="tag">
+
+    <!-- Settings for page -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!-- Favicon -->
+    <link rel="icon" th:href="@{/favicon.ico}"/>
+
+    <!-- Bootstrap -->
+    <!--<link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}"/>-->
+    <link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}"/>
+    <!-- Font-Awesome -->
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/4.7.0/css/font-awesome.css}"/>
+    <!-- Application Style -->
+    <link rel="stylesheet" th:href="@{/assets/css/application.css}"/>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script type="text/javascript" th:src="@{/webjars/jquery/1.11.1/jquery.min.js}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+    <!-- Application Code -->
+    <script type="text/javascript" th:src="@{/assets/js/application.js}"></script>
+</thymeleaf>
+
