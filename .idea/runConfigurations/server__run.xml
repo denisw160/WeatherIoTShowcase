@@ -10,6 +10,8 @@
     <option name="ALTERNATIVE_JRE_PATH" />
     <module name="server" />
     <envs />
-    <method />
+    <method>
+      <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/server/pom.xml" goal="resources:resources" />
+    </method>
   </configuration>
 </component>
