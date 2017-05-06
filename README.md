@@ -1,7 +1,7 @@
 A Showcase for using IoT to collect weather data
 ====
 
-[![Build Status](https://travis-ci.org/denisw160/IoTWeatherStationShowcase.svg?branch=master)](https://travis-ci.org/denisw160/IoTWeatherStationShowcase)
+[![Build Status](https://travis-ci.org/denisw160/WeatherIoTShowcase.svg?branch=master)](https://travis-ci.org/denisw160/WeatherIoTShowcase)
 
 **Implentation still in progress!**
 
