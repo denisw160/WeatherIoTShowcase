@@ -18,6 +18,11 @@ public class SiteController {
         return "site/dashboard";
     }
 
+    @RequestMapping(value = "/locations")
+    public String locations() {
+        return "site/locations";
+    }
+
     @RequestMapping(value = "/map")
     public String map() {
         return "site/map";

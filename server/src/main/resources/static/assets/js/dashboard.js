@@ -1,12 +1,12 @@
 // Global variables
-var gaugeCurrent;
-var gaugeErrors;
-var gaugeStates;
+var gaugeStations;
+var gaugeIncoming;
+var gaugeLocations;
 
 function init(options, i18n) {
 
     // Options for the gauges
-    var solidgaugeOptions = {
+    var gaugeOptions = {
         chart: {
             type: 'solidgauge'
         },
@@ -48,30 +48,26 @@ function init(options, i18n) {
         }
     };
 
-    // Current order
-    gaugeCurrent = Highcharts.chart('gauge-current', Highcharts.merge(solidgaugeOptions, {
+    // Stations on server
+    gaugeStations = Highcharts.chart('gauge-stations', Highcharts.merge(gaugeOptions, {
         yAxis: {
             min: 0,
             max: 100,
-            title: {
-                text: i18n.get('dashboard.gauge-current')
-            },
-            stops: [
-                [0.0, '#DF5353'], // red
-                [0.7, '#DDDF0D'], // yellow
-                [0.9, '#55BF3B']  // green
-            ]
+            title: null
+        },
+        chart: {
+            backgroundColor: "rgb(46, 51, 56)"
         },
         credits: {
             enabled: false
         },
         series: [{
-            name: 'current',
+            name: 'stations',
             data: [0],
             dataLabels: {
                 format: '<div style="text-align:center"><span style="font-size:25px;color:' +
                 ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
-                '<span style="font-size:12px;color:silver">' + i18n.get('dashboard.gauge-current-processed') + '</span></div>'
+                '<span style="font-size:12px;color:silver">' + i18n.get('dashboard.gauge-stations') + '</span></div>'
             },
             tooltip: {
                 enabled: false
@@ -79,29 +75,31 @@ function init(options, i18n) {
         }]
     }));
 
-    // Errors in processing
-    gaugeErrors = Highcharts.chart('gauge-errors', Highcharts.merge(solidgaugeOptions, {
+    // Incoming messages on server
+    gaugeIncoming = Highcharts.chart('gauge-incoming', Highcharts.merge(gaugeOptions, {
         yAxis: {
             min: 0,
             max: 100,
-            title: {
-                text: i18n.get('dashboard.gauge-errors')
-            },
+            title: null,
             stops: [
-                [0.0, '#DDDF0D'],  // yellow
-                [0.1, '#DF5353']   // red
+                [0.0, '#55BF3B'], // green
+                [0.8, '#DDDF0D'], // yellow
+                [0.9, '#DF5353']  // red,
             ]
+        },
+        chart: {
+            backgroundColor: "rgb(46, 51, 56)"
         },
         credits: {
             enabled: false
         },
         series: [{
-            name: 'errors',
+            name: 'incoming',
             data: [0],
             dataLabels: {
                 format: '<div style="text-align:center"><span style="font-size:25px;color:' +
                 ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
-                '<span style="font-size:12px;color:silver">' + i18n.get('dashboard.gauge-errors-occurred') + '</span></div>'
+                '<span style="font-size:12px;color:silver">' + i18n.get('dashboard.gauge-incoming') + '</span></div>'
             },
             tooltip: {
                 enabled: false
@@ -110,14 +108,15 @@ function init(options, i18n) {
     }));
 
     // States for the orders
-    gaugeStates = Highcharts.chart('gauge-states', {
+    gaugeLocations = Highcharts.chart('gauge-locations', {
         chart: {
+            backgroundColor: "rgb(46, 51, 56)",
             plotBackgroundColor: null,
             plotBorderWidth: 0,
             plotShadow: false
         },
         title: {
-            text: i18n.get('dashboard.gauge-states'),
+            text: i18n.get('dashboard.gauge-locations'),
             align: 'center',
             verticalAlign: 'top',
             y: 30
@@ -142,48 +141,50 @@ function init(options, i18n) {
         },
         series: [{
             type: 'pie',
-            name: i18n.get('dashboard.gauge-states-name'),
+            name: i18n.get('dashboard.gauge-locations-names'),
             innerSize: '40%',
             data: [
-                [i18n.get('dashboard.gauge-state-open'), 1.0],
-                [i18n.get('dashboard.gauge-state-canceled'), 2.0],
-                [i18n.get('dashboard.gauge-state-completed'), 3.0]
+                ['test 1', 1.0],
+                ['test 2', 2.0],
+                ['test 3', 3.0]
             ]
         }]
     });
 
-    // Update the gauges
+    // Updates
     setInterval(function () {
-        // Update Current
-        if (gaugeCurrent) {
-            $.get(options.urlCurrent, function (data) {
-                var axis = gaugeCurrent.yAxis[0];
+        return; // todo
+
+        // Update Stations
+        if (gaugeStations) {
+            $.get(options.urlStations, function (data) {
+                var axis = gaugeStations.yAxis[0];
                 axis.setExtremes(data.min, data.max);
 
-                var point = gaugeCurrent.series[0].points[0];
+                var point = gaugeStations.series[0].points[0];
                 point.update(data.value);
             });
         }
 
-        // Update Errors
-        if (gaugeErrors) {
-            $.get(options.urlErrors, function (data) {
-                var axis = gaugeErrors.yAxis[0];
+        // Update Incoming
+        if (gaugeIncoming) {
+            $.get(options.urlIncoming, function (data) {
+                var axis = gaugeIncoming.yAxis[0];
                 axis.setExtremes(data.min, data.max);
 
-                var point = gaugeErrors.series[0].points[0];
+                var point = gaugeIncoming.series[0].points[0];
                 point.update(data.value);
             });
         }
 
-        // Update States
-        if (gaugeStates) {
-            $.get(options.urlStates, function (data) {
-                var open = gaugeStates.series[0].points[0];
+        // Update Locations
+        if (gaugeLocations) {
+            $.get(options.urlLocations, function (data) {
+                var open = gaugeLocations.series[0].points[0];
                 open.update(data.open);
-                var canceled = gaugeStates.series[0].points[1];
+                var canceled = gaugeLocations.series[0].points[1];
                 canceled.update(data.canceled);
-                var completed = gaugeStates.series[0].points[2];
+                var completed = gaugeLocations.series[0].points[2];
                 completed.update(data.completed);
             });
         }

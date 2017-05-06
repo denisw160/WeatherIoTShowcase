@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Default meta -->
+    <thymeleaf th:replace="fragments/meta :: head"></thymeleaf>
+
+    <!-- Custom title -->
+    <title th:text="#{application.title}">&nbsp;</title>
+</head>
+
+<body>
+
+<div th:include="fragments/header :: header"></div>
+
+<div class="container">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-lg-8 col-md-7 col-sm-6">
+                <h2 th:text="#{locations.title}">&nbsp;</h2>
+                <p class="lead" th:text="#{locations.text}">&nbsp;</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="map-locations"></div>
+        </div>
+    </div>
+</div>
+
+<div th:include="fragments/footer :: footer"></div>
+
+<!-- Highcharts -->
+<script type="text/javascript" src="https://code.highcharts.com/maps/highmaps.js"></script>
+<script type="text/javascript" src="https://code.highcharts.com/themes/dark-unica.js"></script>
+<script type="text/javascript" src="https://code.highcharts.com/mapdata/countries/de/de-all-all.js"></script>
+
+<!-- Custom -->
+<script type="text/javascript" th:src="@{/assets/js/locations.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+    var i18n = new Map();
+    //    i18n.set('dashboard.gauge-stations', [[#{dashboard.gauge-stations}]]);
+    init({
+        urlLocationMap: /*[[@{/rest/locationmap}]]*/ ''
+    }, i18n);
+</script>
+
+</body>
+</html>
