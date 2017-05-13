@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
- * TODO Write Tests
+ * Tests for {@link ServerApplication}.
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -14,6 +14,7 @@ public class ServerApplicationTest {
 
     @Test
     public void contextLoads() {
+        // Start only the context
     }
 
 }
