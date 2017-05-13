@@ -8,10 +8,6 @@ import java.util.Date;
 
 /**
  * Test repository {@link TemperatureMessageRepository}.
- *
- * @author Denis Wirries
- * @version 1.0
- * @since 13.05.2017
  */
 public class TemperatureMessageRepositoryTest extends AbstractRepositoryTest {
 

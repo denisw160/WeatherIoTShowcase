@@ -1,7 +1,5 @@
 package me.wirries.weatheriotshowcase.server.service;
 
-import com.google.maps.GeoApiContext;
-import com.google.maps.GeocodingApi;
 import com.google.maps.model.AddressComponent;
 import com.google.maps.model.AddressComponentType;
 import com.google.maps.model.GeocodingResult;
@@ -12,7 +10,6 @@ import me.wirries.weatheriotshowcase.server.repository.LocationRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import static org.apache.commons.lang3.ArrayUtils.contains;
@@ -30,28 +27,27 @@ public class LocationServiceImpl implements LocationService {
     private static final Logger LOGGER = LoggerFactory.getLogger(LocationServiceImpl.class);
 
     private final LocationRepository locationRepository;
-
-    @Value("${google.api.key}")
-    private String apiKey;
+    private final MapService mapService;
 
     @Autowired
-    public LocationServiceImpl(final LocationRepository locationRepository) {
+    public LocationServiceImpl(final MapService mapService,
+                               final LocationRepository locationRepository) {
+        this.mapService = mapService;
         this.locationRepository = locationRepository;
     }
 
     @Override
-    public void cache(final double latitude, final double longitude) {
+    public void translate(final double latitude, final double longitude) {
         final LocationEntity entity = createOrFindLocation(latitude, longitude);
 
         if (entity.getName() == null) {
             LOGGER.debug("Creating cache for coordinates lat: {} and lng: {}", latitude, longitude);
             try {
-                final GeoApiContext context = new GeoApiContext().setApiKey(apiKey);
                 final LatLng location = new LatLng(latitude, longitude);
-                final GeocodingResult[] results = GeocodingApi.reverseGeocode(context, location).await();
+                final GeocodingResult result = mapService.translate(location);
 
-                if (results != null && results.length > 0) {
-                    updateLocation(entity, results[0]);
+                if (result != null) {
+                    updateLocation(entity, result);
                     locationRepository.save(entity);
                 }
             } catch (final Exception e) {

@@ -1,10 +1,11 @@
-package me.wirries.weatheriotshowcase.server.sample;
+package me.wirries.weatheriotshowcase.server.job;
 
 import me.wirries.weatheriotshowcase.server.controller.MessageController;
 import me.wirries.weatheriotshowcase.server.model.TemperatureMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -19,21 +20,34 @@ import java.util.concurrent.ThreadLocalRandom;
  * @since 09.05.17
  */
 @Component
-public class CreateSamples {
+public class SampleDataJob {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CreateSamples.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SampleDataJob.class);
 
     private final MessageController service;
 
+    @Value("${job.sampleData}")
+    private boolean active;
+
     @Autowired
-    public CreateSamples(final MessageController service) {
+    public SampleDataJob(final MessageController service) {
         this.service = service;
     }
 
-    @Scheduled(fixedDelay = 30000)
+    @Scheduled(fixedDelay = 15000)
     public void run() {
+        if (!active) return;
+
+        createData();
+    }
+
+    public void createData() {
         LOGGER.debug("Creating sampling data");
         for (int i = 0; i < 10; i++) {
+            final Random random = new Random();
+            final int r = random.nextInt(10);
+            if (r < 6) continue;
+
             final TemperatureMessage message = new TemperatureMessage();
             message.setStationId("station-" + i);
             getLocation(message, 52.376270, 9.739498, 10000);
@@ -43,7 +57,6 @@ public class CreateSamples {
 
             service.temperature(message);
         }
-
     }
 
     private static void getLocation(final TemperatureMessage message,

@@ -1,4 +1,4 @@
-package me.wirries.weatheriotshowcase.server;
+package me.wirries.weatheriotshowcase.server.model;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;

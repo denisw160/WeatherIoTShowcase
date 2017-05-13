@@ -15,6 +15,6 @@ public interface LocationService {
      * @param latitude  Coordinates
      * @param longitude Coordinates
      */
-    void cache(double latitude, double longitude);
+    void translate(double latitude, double longitude);
 
 }

@@ -1,5 +1,7 @@
 package me.wirries.weatheriotshowcase.server.config;
 
+import me.wirries.weatheriotshowcase.server.service.MapService;
+import me.wirries.weatheriotshowcase.server.service.MapServiceImpl;
 import org.dozer.DozerBeanMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +47,13 @@ public class ApplicationConfig {
     @Description("Create Mapper for POJO transformation")
     public DozerBeanMapper dozerBean() {
         return new DozerBeanMapper();
+    }
+
+    @Bean
+    @Description("Creates the bean for the map service")
+    public MapService mapService() {
+        LOGGER.debug("Using GoogleMaps as MapService");
+        return new MapServiceImpl();
     }
 
 }

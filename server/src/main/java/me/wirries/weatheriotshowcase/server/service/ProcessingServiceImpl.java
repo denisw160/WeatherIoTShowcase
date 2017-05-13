@@ -87,7 +87,7 @@ public class ProcessingServiceImpl implements ProcessingService {
 
     @Async
     private void updateLocation(final TemperatureMessage message) {
-        locationService.cache(message.getLatitude(), message.getLongitude());
+        locationService.translate(message.getLatitude(), message.getLongitude());
     }
 
 }

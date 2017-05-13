@@ -143,7 +143,7 @@ public class TemperatureController {
         return value;
     }
 
-    public double round(final double value, final int places) {
+    private double round(final double value, final int places) {
         if (places < 0) throw new IllegalArgumentException();
 
         BigDecimal bd = BigDecimal.valueOf(value);

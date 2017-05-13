@@ -69,6 +69,10 @@ javamelody:
     # to change the default "/monitoring" path
     monitoring-path: /monitor-ui
 
+## Jobs ##
+job:
+  sampleData: false
+
 ## Google Maps ##
 google:
   api:

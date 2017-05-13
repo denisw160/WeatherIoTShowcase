@@ -2,7 +2,7 @@
   <configuration default="false" name="server: run" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
       <pattern>
-        <option name="PATTERN" value="me.wirries.weatheriotshowcase.server.*" />
+        <option name="PATTERN" value="me.wirries.weatheriotshowcase.server.config.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>

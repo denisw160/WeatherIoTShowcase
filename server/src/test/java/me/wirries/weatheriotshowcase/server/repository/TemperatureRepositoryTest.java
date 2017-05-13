@@ -9,10 +9,6 @@ import java.util.Date;
 
 /**
  * Test repository {@link TemperatureRepository}.
- *
- * @author Denis Wirries
- * @version 1.0
- * @since 13.05.2017
  */
 public class TemperatureRepositoryTest extends AbstractRepositoryTest {
 

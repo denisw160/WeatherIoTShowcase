@@ -7,10 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * Test repository {@link LocationRepository}.
- *
- * @author Denis Wirries
- * @version 1.0
- * @since 13.05.2017
  */
 public class LocationRepositoryTest extends AbstractRepositoryTest {
 

@@ -1,4 +1,4 @@
-package me.wirries.weatheriotshowcase.server;
+package me.wirries.weatheriotshowcase.server.model;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
