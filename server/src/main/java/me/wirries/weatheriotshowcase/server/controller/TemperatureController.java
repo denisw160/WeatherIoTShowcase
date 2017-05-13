@@ -83,10 +83,11 @@ public class TemperatureController {
         LOGGER.debug("Searching for active stations by location");
 
         final Date fromDate = DateUtils.addMinutes(new Date(), -5);
-        final List<Serializable[]> count = new ArrayList<>(); // repository.countActiveStationsByLocation(fromDate);
-        count.add(new Serializable[]{"t1", 3});
-        count.add(new Serializable[]{"t2", 1});
-        count.add(new Serializable[]{"t3", 2});
+        final List<Object[]> objects = repository.countActiveStationsByLocation(fromDate);
+        final List<Serializable[]> count = new ArrayList<>();
+        for (final Object[] o : objects) {
+            count.add(new Serializable[]{(String) o[0], (Long) o[1]});
+        }
 
         return createBarValue(count);
     }

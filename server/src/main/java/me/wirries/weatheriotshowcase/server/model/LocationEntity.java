@@ -28,9 +28,21 @@ public class LocationEntity implements Serializable {
 
     private String name;
 
-    private String hcA2;
+    private String subLocalityLevel1;
+    private String subLocalityLevel2;
+    private String subLocalityLevel3;
 
-    private String county;
+    private String locality;
+
+    private String administrativeLevel3;
+    private String administrativeLevel2;
+    private String administrativeLevel1;
+
+    private String postalCode;
+
+    private String country;
+    private String isoCode;
+
 
     public CoordinateId getId() {
         return id;
@@ -48,20 +60,84 @@ public class LocationEntity implements Serializable {
         this.name = name;
     }
 
-    public String getHcA2() {
-        return hcA2;
+    public String getSubLocalityLevel1() {
+        return subLocalityLevel1;
     }
 
-    public void setHcA2(final String hcA2) {
-        this.hcA2 = hcA2;
+    public void setSubLocalityLevel1(final String subLocalityLevel1) {
+        this.subLocalityLevel1 = subLocalityLevel1;
     }
 
-    public String getCounty() {
-        return county;
+    public String getSubLocalityLevel2() {
+        return subLocalityLevel2;
     }
 
-    public void setCounty(final String county) {
-        this.county = county;
+    public void setSubLocalityLevel2(final String subLocalityLevel2) {
+        this.subLocalityLevel2 = subLocalityLevel2;
+    }
+
+    public String getSubLocalityLevel3() {
+        return subLocalityLevel3;
+    }
+
+    public void setSubLocalityLevel3(final String subLocalityLevel3) {
+        this.subLocalityLevel3 = subLocalityLevel3;
+    }
+
+    public String getLocality() {
+        return locality;
+    }
+
+    public void setLocality(final String locality) {
+        this.locality = locality;
+    }
+
+    public String getAdministrativeLevel3() {
+        return administrativeLevel3;
+    }
+
+    public void setAdministrativeLevel3(final String administrativeLevel3) {
+        this.administrativeLevel3 = administrativeLevel3;
+    }
+
+    public String getAdministrativeLevel2() {
+        return administrativeLevel2;
+    }
+
+    public void setAdministrativeLevel2(final String administrativeLevel2) {
+        this.administrativeLevel2 = administrativeLevel2;
+    }
+
+    public String getAdministrativeLevel1() {
+        return administrativeLevel1;
+    }
+
+    public void setAdministrativeLevel1(final String administrativeLevel1) {
+        this.administrativeLevel1 = administrativeLevel1;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(final String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getIsoCode() {
+        return isoCode;
+    }
+
+    public void setIsoCode(String isoCode) {
+        this.isoCode = isoCode;
     }
 
     @Override
@@ -89,8 +165,17 @@ public class LocationEntity implements Serializable {
         return new ToStringBuilder(this)
                 .append("id", id)
                 .append("name", name)
-                .append("hcA2", hcA2)
-                .append("county", county)
+                .append("subLocalityLevel1", subLocalityLevel1)
+                .append("subLocalityLevel2", subLocalityLevel2)
+                .append("subLocalityLevel3", subLocalityLevel3)
+                .append("locality", locality)
+                .append("administrativeLevel3", administrativeLevel3)
+                .append("administrativeLevel2", administrativeLevel2)
+                .append("administrativeLevel1", administrativeLevel1)
+                .append("postalCode", postalCode)
+                .append("country", country)
+                .append("isoCode", isoCode)
                 .toString();
     }
+
 }

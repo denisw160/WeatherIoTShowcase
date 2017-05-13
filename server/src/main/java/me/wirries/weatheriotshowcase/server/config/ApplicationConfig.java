@@ -23,8 +23,6 @@ import java.util.Arrays;
 @Configuration
 @EnableAsync
 @EnableScheduling
-//@EnableJpaRepositories
-//@EnableTransactionManagement
 public class ApplicationConfig {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationConfig.class);

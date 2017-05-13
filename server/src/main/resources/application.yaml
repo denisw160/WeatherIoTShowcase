@@ -68,3 +68,8 @@ javamelody:
     #storage-directory: /tmp/javamelody
     # to change the default "/monitoring" path
     monitoring-path: /monitor-ui
+
+## Google Maps ##
+google:
+  api:
+    key: @google_api_key@

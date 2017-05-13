@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * This repository handles the access for the temperatures.
@@ -29,6 +30,14 @@ public interface TemperatureRepository extends JpaRepository<TemperatureEntity, 
     @Query("select count(stationId) from TemperatureEntity where lastUpdate > :from")
     long countActiveStations(@Param("from") Date fromDate);
 
-//    long countActiveStationsByLocation(Date fromDate);
+    /**
+     * Return the count of active stations group by location.
+     * Return Type is Object[0] = name, Object[1] = count.
+     *
+     * @param fromDate count only stations with data after this date
+     * @return count group by location
+     */
+    @Query("select e.administrativeLevel3 as name, count(t.stationId) as count from TemperatureEntity t, LocationEntity e where t.id=e.id and t.lastUpdate > :from group by e.administrativeLevel3")
+    List<Object[]> countActiveStationsByLocation(@Param("from") Date fromDate);
 
 }

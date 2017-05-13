@@ -23,6 +23,15 @@ public class CoordinateId implements Serializable {
 
     private double longitude;
 
+    public CoordinateId() {
+        // default constructor
+    }
+
+    public CoordinateId(final double latitude, final double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
     public double getLatitude() {
         return latitude;
     }
