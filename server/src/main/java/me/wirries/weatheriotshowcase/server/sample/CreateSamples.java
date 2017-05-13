@@ -30,7 +30,7 @@ public class CreateSamples {
         this.service = service;
     }
 
-    @Scheduled(fixedDelay = 5000)
+    @Scheduled(fixedDelay = 30000)
     public void run() {
         LOGGER.debug("Creating sampling data");
         for (int i = 0; i < 10; i++) {

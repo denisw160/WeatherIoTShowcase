@@ -40,4 +40,14 @@ public interface TemperatureRepository extends JpaRepository<TemperatureEntity, 
     @Query("select e.administrativeLevel3 as name, count(t.stationId) as count from TemperatureEntity t, LocationEntity e where t.id=e.id and t.lastUpdate > :from group by e.administrativeLevel3")
     List<Object[]> countActiveStationsByLocation(@Param("from") Date fromDate);
 
+    /**
+     * Return the count of active stations group by country.
+     * Return Type is Object[0] = name, Object[1] = count.
+     *
+     * @param fromDate count only stations with data after this date
+     * @return count group by location
+     */
+    @Query("select lower(e.isoCode) as name, count(t.stationId) as count from TemperatureEntity t, LocationEntity e where t.id=e.id and t.lastUpdate > :from group by e.isoCode")
+    List<Object[]> countActiveStationsByCountry(@Param("from") Date fromDate);
+
 }

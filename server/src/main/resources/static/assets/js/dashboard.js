@@ -144,9 +144,7 @@ function init(options, i18n) {
             name: i18n.get('dashboard.gauge-locations-names'),
             innerSize: '40%',
             data: [
-                ['test 1', 1.0],
-                ['test 2', 2.0],
-                ['test 3', 3.0]
+                ['unknown', 0.0]
             ]
         }]
     });

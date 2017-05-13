@@ -2,8 +2,8 @@ package me.wirries.weatheriotshowcase.server.controller;
 
 import io.swagger.annotations.ApiOperation;
 import me.wirries.weatheriotshowcase.server.config.ApplicationConfig;
-import me.wirries.weatheriotshowcase.server.model.BarChartValue;
 import me.wirries.weatheriotshowcase.server.model.GaugeChartValue;
+import me.wirries.weatheriotshowcase.server.model.SimpleKeyValue;
 import me.wirries.weatheriotshowcase.server.repository.TemperatureMessageRepository;
 import me.wirries.weatheriotshowcase.server.repository.TemperatureRepository;
 import org.apache.commons.lang3.time.DateUtils;
@@ -79,21 +79,36 @@ public class TemperatureController {
 
     @ApiOperation(value = "This service return the count of the active stations group by location.")
     @RequestMapping(value = "/rest/temperature/locations", method = RequestMethod.GET)
-    public BarChartValue locations() {
+    public SimpleKeyValue locations() {
         LOGGER.debug("Searching for active stations by location");
 
         final Date fromDate = DateUtils.addMinutes(new Date(), -5);
         final List<Object[]> objects = repository.countActiveStationsByLocation(fromDate);
+
+        return createSimpleKeyValue(transform(objects));
+    }
+
+    @ApiOperation(value = "This service return the count of the active stations group by country.")
+    @RequestMapping(value = "/rest/temperature/country", method = RequestMethod.GET)
+    public SimpleKeyValue locationsCountry() {
+        LOGGER.debug("Searching for active stations by country");
+
+        final Date fromDate = DateUtils.addMinutes(new Date(), -15);
+        final List<Object[]> objects = repository.countActiveStationsByCountry(fromDate);
+
+        return createSimpleKeyValue(transform(objects));
+    }
+
+    private List<Serializable[]> transform(final List<Object[]> objects) {
         final List<Serializable[]> count = new ArrayList<>();
         for (final Object[] o : objects) {
             count.add(new Serializable[]{(String) o[0], (Long) o[1]});
         }
-
-        return createBarValue(count);
+        return count;
     }
 
-    private BarChartValue createBarValue(final List<Serializable[]> count) {
-        final BarChartValue value = new BarChartValue();
+    private SimpleKeyValue createSimpleKeyValue(final List<Serializable[]> count) {
+        final SimpleKeyValue value = new SimpleKeyValue();
         value.setValue(count);
 
         return value;

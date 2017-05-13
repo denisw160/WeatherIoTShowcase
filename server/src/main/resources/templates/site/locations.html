@@ -27,7 +27,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div id="map-locations"></div>
+            <div id="map-locations" style="height: 600px"></div>
         </div>
     </div>
 </div>
@@ -44,16 +44,16 @@
 <!-- Highcharts -->
 <script type="text/javascript" src="https://code.highcharts.com/maps/highmaps.js"></script>
 <script type="text/javascript" src="https://code.highcharts.com/themes/dark-unica.js"></script>
-<script type="text/javascript" src="https://code.highcharts.com/mapdata/countries/de/de-all-all.js"></script>
+<script type="text/javascript" src="https://code.highcharts.com/mapdata/custom/world-highres2.js"></script>
 
 <!-- Custom -->
 <script type="text/javascript" th:src="@{/assets/js/locations.js}"></script>
 <script type="text/javascript" th:inline="javascript">
     jQuery(document).ready(function ($) {
         var i18n = new Map();
-        //    i18n.set('dashboard.gauge-stations', [[#{dashboard.gauge-stations}]]);
+        i18n.set('locations.map-names', [[#{locations.map-names}]]);
         init({
-            urlLocationMap: /*[[@{/rest/locationmap}]]*/ ''
+            urlLocationMap: /*[[@{/rest/temperature/country}]]*/ ''
         }, i18n);
     });
 </script>

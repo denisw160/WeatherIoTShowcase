@@ -12,7 +12,7 @@ import java.util.List;
  * @version 1.0
  * @since 13.05.2017
  */
-public class BarChartValue implements Serializable {
+public class SimpleKeyValue implements Serializable {
 
     private static final long serialVersionUID = -785304156445509954L;
 
