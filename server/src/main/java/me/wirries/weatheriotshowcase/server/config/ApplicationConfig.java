@@ -28,13 +28,13 @@ public class ApplicationConfig {
 
     @Bean
     @Description("Tracing for spring beans")
-    public CommandLineRunner tracingBeans(ApplicationContext ctx) {
+    public CommandLineRunner tracingBeans(final ApplicationContext ctx) {
         return args -> {
             LOG.trace("Let's inspect the beans provided by Spring Boot:");
 
-            String[] beanNames = ctx.getBeanDefinitionNames();
+            final String[] beanNames = ctx.getBeanDefinitionNames();
             Arrays.sort(beanNames);
-            for (String beanName : beanNames) {
+            for (final String beanName : beanNames) {
                 LOG.trace("  -> {}", beanName);
             }
         };

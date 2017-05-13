@@ -14,6 +14,24 @@ spring:
   thymeleaf:
     cache: false
 
+  # Database
+  datasource:
+    url: jdbc:h2:mem:IOT;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+
+  # H2 Database Console
+  h2:
+    console:
+      enabled: true
+      path: /console/
+
+  # JPA
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    generate-ddl: true
+
 ## Tomcat ##
 server:
   port: 8080
