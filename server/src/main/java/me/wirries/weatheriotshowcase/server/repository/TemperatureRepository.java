@@ -22,6 +22,15 @@ import java.util.List;
 public interface TemperatureRepository extends JpaRepository<TemperatureEntity, CoordinateId> {
 
     /**
+     * Return all active temperature stations.
+     *
+     * @param fromDate Only station with data after fromDate
+     * @return List of stations
+     */
+    @Query("select t from TemperatureEntity t where t.lastUpdate > :from")
+    List<TemperatureEntity> findActive(@Param("from") Date fromDate);
+
+    /**
      * Counts the stations with data after the fromDate.
      *
      * @param fromDate count only stations with data after this date

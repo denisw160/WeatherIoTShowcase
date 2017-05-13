@@ -3,6 +3,11 @@ var gaugeStations;
 var gaugeIncoming;
 var gaugeLocations;
 
+/**
+ * Initialize the diagrams.
+ * @param options Options for the diagrams
+ * @param i18n Translation
+ */
 function init(options, i18n) {
 
     // Options for the gauges
@@ -159,6 +164,7 @@ function init(options, i18n) {
 
 /**
  * Update the diagrams.
+ * @param options Options for the diagrams
  */
 function update(options) {
 

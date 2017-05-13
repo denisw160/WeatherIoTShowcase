@@ -1,6 +1,11 @@
 // Global variables
 var mapLocations;
 
+/**
+ * Initialize the map.
+ * @param options Options for the map
+ * @param i18n Translation
+ */
 function init(options, i18n) {
 
     var data = [
@@ -53,6 +58,7 @@ function init(options, i18n) {
 
 /**
  * Update the map.
+ * @param options Options for the map
  */
 function update(options) {
 

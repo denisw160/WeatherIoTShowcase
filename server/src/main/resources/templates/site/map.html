@@ -41,31 +41,17 @@
 
 <div th:include="fragments/footer :: footer"></div>
 
-<script>
-    var map;
-    function initMap() {
-        console.info("Init map ...");
-        map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: 52.376189, lng: 9.740565},
-            zoom: 4
-        });
-        console.info("Init map done.");
-    }
-</script>
-
-
+<script type="text/javascript" th:src="@{/assets/js/map.js}"></script>
 <script type="text/javascript" async="async" defer="defer"
         src="https://maps.googleapis.com/maps/api/js?key=@google_api_key@&amp;callback=initMap"></script>
 
-<!--<script type="text/javascript" th:src="@{/assets/js/map.js}"></script>-->
 <script type="text/javascript" th:inline="javascript">
     jQuery(document).ready(function ($) {
         var i18n = new Map();
-        i18n.set('dashboard.gauge-current', [[#{dashboard.gauge-current}]]);
-        //    init({
-        //        urlTemperatureMap: /*[[@{/rest/temperaturemap}]]*/ ''
-        //    }, i18n);
-
+        i18n.set('map.XXX', [[#{map.XXX}]]);
+        init({
+            urlTemperature: /*[[@{/rest/temperature}]]*/ ''
+        }, i18n);
     });
 </script>
 

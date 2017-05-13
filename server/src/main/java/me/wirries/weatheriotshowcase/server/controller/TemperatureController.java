@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiOperation;
 import me.wirries.weatheriotshowcase.server.config.ApplicationConfig;
 import me.wirries.weatheriotshowcase.server.model.GaugeChartValue;
 import me.wirries.weatheriotshowcase.server.model.SimpleKeyValue;
+import me.wirries.weatheriotshowcase.server.model.TemperatureEntity;
+import me.wirries.weatheriotshowcase.server.model.TemperatureValue;
 import me.wirries.weatheriotshowcase.server.repository.TemperatureMessageRepository;
 import me.wirries.weatheriotshowcase.server.repository.TemperatureRepository;
 import org.apache.commons.lang3.time.DateUtils;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,6 +47,31 @@ public class TemperatureController {
 
         this.repository = repository;
         this.messageRepository = messageRepository;
+    }
+
+    @ApiOperation(value = "This service return all active stations with temperatures.")
+    @RequestMapping(value = "/rest/temperature", method = RequestMethod.GET)
+    public List<TemperatureValue> temperature() {
+        LOGGER.debug("Searching for active temperature stations");
+
+        final Date fromDate = DateUtils.addMinutes(new Date(), -15);
+        final List<TemperatureEntity> list = repository.findActive(fromDate);
+
+        return convert(list);
+    }
+
+    private List<TemperatureValue> convert(final List<TemperatureEntity> list) {
+        final List<TemperatureValue> result = new ArrayList<>();
+
+        for (final TemperatureEntity e : list) {
+            final TemperatureValue v = new TemperatureValue();
+            v.setLatitude(e.getId().getLatitude());
+            v.setLongitude(e.getId().getLongitude());
+            v.setTemperature(round(e.getTemperature(), 1));
+            result.add(v);
+        }
+
+        return result;
     }
 
     @ApiOperation(value = "This service return the count of the active stations.")
@@ -112,6 +141,14 @@ public class TemperatureController {
         value.setValue(count);
 
         return value;
+    }
+
+    public double round(final double value, final int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 
 }
