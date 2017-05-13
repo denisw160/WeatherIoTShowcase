@@ -70,16 +70,18 @@
 <!-- Custom -->
 <script type="text/javascript" th:src="@{/assets/js/dashboard.js}"></script>
 <script type="text/javascript" th:inline="javascript">
-    var i18n = new Map();
-    i18n.set('dashboard.gauge-stations', [[#{dashboard.gauge-stations}]]);
-    i18n.set('dashboard.gauge-incoming', [[#{dashboard.gauge-incoming}]]);
-    i18n.set('dashboard.gauge-locations', [[#{dashboard.gauge-locations}]]);
-    i18n.set('dashboard.gauge-locations-names', [[#{dashboard.gauge-locations-names}]]);
-    init({
-        urlStations: /*[[@{/rest/stations}]]*/ '',
-        urlLocations: /*[[@{/rest/locations}]]*/ '',
-        urlIncoming: /*[[@{/rest/incoming}]]*/ '',
-    }, i18n);
+    jQuery(document).ready(function ($) {
+        var i18n = new Map();
+        i18n.set('dashboard.gauge-stations', [[#{dashboard.gauge-stations}]]);
+        i18n.set('dashboard.gauge-incoming', [[#{dashboard.gauge-incoming}]]);
+        i18n.set('dashboard.gauge-locations', [[#{dashboard.gauge-locations}]]);
+        i18n.set('dashboard.gauge-locations-names', [[#{dashboard.gauge-locations-names}]]);
+        init({
+            urlStations: /*[[@{/rest/temperature/stations}]]*/ '',
+            urlLocations: /*[[@{/rest/temperature/locations}]]*/ '',
+            urlIncoming: /*[[@{/rest/temperature/received}]]*/ ''
+        }, i18n);
+    });
 </script>
 
 </body>

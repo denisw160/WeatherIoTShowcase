@@ -1,5 +1,6 @@
 package me.wirries.weatheriotshowcase.server.config;
 
+import org.dozer.DozerBeanMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -22,22 +23,30 @@ import java.util.Arrays;
 @Configuration
 @EnableAsync
 @EnableScheduling
+//@EnableJpaRepositories
+//@EnableTransactionManagement
 public class ApplicationConfig {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ApplicationConfig.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationConfig.class);
 
     @Bean
     @Description("Tracing for spring beans")
     public CommandLineRunner tracingBeans(final ApplicationContext ctx) {
         return args -> {
-            LOG.trace("Let's inspect the beans provided by Spring Boot:");
+            LOGGER.trace("Let's inspect the beans provided by Spring Boot:");
 
             final String[] beanNames = ctx.getBeanDefinitionNames();
             Arrays.sort(beanNames);
             for (final String beanName : beanNames) {
-                LOG.trace("  -> {}", beanName);
+                LOGGER.trace("  -> {}", beanName);
             }
         };
+    }
+
+    @Bean(name = "org.dozer.Mapper")
+    @Description("Create Mapper for POJO transformation")
+    public DozerBeanMapper dozerBean() {
+        return new DozerBeanMapper();
     }
 
 }

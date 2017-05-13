@@ -1,6 +1,6 @@
 package me.wirries.weatheriotshowcase.server.sample;
 
-import me.wirries.weatheriotshowcase.server.controller.ServiceController;
+import me.wirries.weatheriotshowcase.server.controller.MessageController;
 import me.wirries.weatheriotshowcase.server.model.TemperatureMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,8 +23,12 @@ public class CreateSamples {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CreateSamples.class);
 
+    private final MessageController service;
+
     @Autowired
-    private ServiceController service;
+    public CreateSamples(final MessageController service) {
+        this.service = service;
+    }
 
     @Scheduled(fixedDelay = 5000)
     public void run() {

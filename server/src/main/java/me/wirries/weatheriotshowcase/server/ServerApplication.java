@@ -26,14 +26,14 @@ public class ServerApplication extends SpringBootServletInitializer {
      *
      * @param args Arguments from command line
      */
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         SpringApplication.run(ServerApplication.class, args);
         final String arguments = Arrays.toString(args);
         LOG.info("Spring Boot Application started with {} ...", arguments);
     }
 
     @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+    protected SpringApplicationBuilder configure(final SpringApplicationBuilder builder) {
         return builder.sources(ServerApplication.class);
     }
 

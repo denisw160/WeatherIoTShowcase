@@ -152,42 +152,45 @@ function init(options, i18n) {
     });
 
     // Updates
+    update(options);
     setInterval(function () {
-        return; // todo
-
-        // Update Stations
-        if (gaugeStations) {
-            $.get(options.urlStations, function (data) {
-                var axis = gaugeStations.yAxis[0];
-                axis.setExtremes(data.min, data.max);
-
-                var point = gaugeStations.series[0].points[0];
-                point.update(data.value);
-            });
-        }
-
-        // Update Incoming
-        if (gaugeIncoming) {
-            $.get(options.urlIncoming, function (data) {
-                var axis = gaugeIncoming.yAxis[0];
-                axis.setExtremes(data.min, data.max);
-
-                var point = gaugeIncoming.series[0].points[0];
-                point.update(data.value);
-            });
-        }
-
-        // Update Locations
-        if (gaugeLocations) {
-            $.get(options.urlLocations, function (data) {
-                var open = gaugeLocations.series[0].points[0];
-                open.update(data.open);
-                var canceled = gaugeLocations.series[0].points[1];
-                canceled.update(data.canceled);
-                var completed = gaugeLocations.series[0].points[2];
-                completed.update(data.completed);
-            });
-        }
-
+        update(options);
     }, 5000);
+
+}
+
+/**
+ * Update the diagrams.
+ */
+function update(options) {
+
+    // Update Stations
+    if (gaugeStations) {
+        $.get(options.urlStations, function (data) {
+            var axis = gaugeStations.yAxis[0];
+            axis.setExtremes(data.min, data.max);
+
+            var point = gaugeStations.series[0].points[0];
+            point.update(data.value);
+        });
+    }
+
+    // Update Incoming
+    if (gaugeIncoming) {
+        $.get(options.urlIncoming, function (data) {
+            var axis = gaugeIncoming.yAxis[0];
+            axis.setExtremes(data.min, data.max);
+
+            var point = gaugeIncoming.series[0].points[0];
+            point.update(data.value);
+        });
+    }
+
+    // Update Locations
+    if (gaugeLocations) {
+        $.get(options.urlLocations, function (data) {
+            gaugeLocations.series[0].setData(data.value);
+        });
+    }
+
 }
