@@ -7,13 +7,15 @@
 
     <!-- Parent -->
     <parent>
-        <artifactId>weatheriotshowcase</artifactId>
         <groupId>me.wirries.weatheriotshowcase</groupId>
+        <artifactId>weatheriotshowcase</artifactId>
         <version>0.1-SNAPSHOT</version>
+        <relativePath>../.</relativePath>
     </parent>
 
     <!-- Project -->
     <artifactId>sample-sensor</artifactId>
+    <version>0.1-SNAPSHOT</version>
 
     <!-- Description -->
     <name>sample-sensor</name>
@@ -21,44 +23,32 @@
         This is an sample implementation of a manual sensor.
     </description>
 
-    <!-- Packaging -->
-    <packaging>jar</packaging>
-
-    <!-- Properties -->
-    <properties>
-        <java.version>1.8</java.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.build.resourcesEncoding>windows-1252</project.build.resourcesEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    </properties>
-
-    <!-- Prerequisites -->
-    <prerequisites>
-        <maven>3.3</maven>
-    </prerequisites>
-
     <!-- Build -->
     <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
     </build>
 
     <!-- Dependencies -->
     <dependencies>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

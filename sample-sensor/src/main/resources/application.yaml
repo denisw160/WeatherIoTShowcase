@@ -1,0 +1,19 @@
+## Spring Configuration ##
+spring:
+  # Application
+  application:
+    name: @project.name@
+    version: @project.version@
+
+## Logging ##
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    me.wirries.weatheriotshowcase.server: DEBUG
+
+## Sensor Window ##
+window:
+  height: 480
+  width: 640
+  resizeable: false

@@ -10,70 +10,62 @@
             fx:controller="me.wirries.weatheriotshowcase.sensor.sample.views.MainController">
     <center>
         <VBox BorderPane.alignment="CENTER">
-            <children>
-                <Label text="Wetter-Station">
-                    <font>
-                        <Font name="System Bold" size="14.0"/>
-                    </font>
-                    <padding>
-                        <Insets bottom="5.0" top="5.0"/>
-                    </padding>
-                </Label>
-                <AnchorPane>
-                    <children>
-                        <ComboBox styleClass="cbx-location" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0"/>
-                    </children>
-                </AnchorPane>
-                <Label text="Koordinaten">
-                    <padding>
-                        <Insets bottom="5.0" left="5.0" top="15.0"/>
-                    </padding>
-                    <font>
-                        <Font name="System Bold" size="12.0"/>
-                    </font>
-                </Label>
-                <HBox alignment="CENTER">
-                    <children>
-                        <Label text="Lat.">
-                            <HBox.margin>
-                                <Insets right="5.0"/>
-                            </HBox.margin>
-                        </Label>
-                        <TextField styleClass="txt-coordinate"/>
-                        <Label text="Lon.">
-                            <HBox.margin>
-                                <Insets left="5.0" right="5.0"/>
-                            </HBox.margin>
-                        </Label>
-                        <TextField styleClass="txt-coordinate"/>
-                    </children>
-                </HBox>
-                <ImageView fitHeight="72.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../images/weather-72x72.png"/>
-                    </image>
-                    <VBox.margin>
-                        <Insets bottom="25.0" top="25.0"/>
-                    </VBox.margin>
-                </ImageView>
-                <VBox alignment="CENTER" prefHeight="190.0" prefWidth="460.0">
-                    <children>
-                        <Label styleClass="lbl-temperature" text="22,0 °C">
-                            <font>
-                                <Font name="System Bold" size="75.0"/>
-                            </font>
-                        </Label>
-                        <Slider max="60.0" min="-30.0" showTickLabels="true" showTickMarks="true" value="22.0">
-                            <VBox.margin>
-                                <Insets top="25.0"/>
-                            </VBox.margin>
-                        </Slider>
-                    </children>
-                </VBox>
-            </children>
             <BorderPane.margin>
                 <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
             </BorderPane.margin>
+            <Label text="Wetter-Station">
+                <font>
+                    <Font name="System Bold" size="14.0"/>
+                </font>
+                <padding>
+                    <Insets bottom="5.0" top="5.0"/>
+                </padding>
+            </Label>
+            <AnchorPane>
+                <ComboBox fx:id="locations" onAction="#locationChanged" styleClass="cbx-location"
+                          AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0"/>
+            </AnchorPane>
+            <Label text="Koordinaten">
+                <padding>
+                    <Insets bottom="5.0" left="5.0" top="15.0"/>
+                </padding>
+                <font>
+                    <Font name="System Bold" size="12.0"/>
+                </font>
+            </Label>
+            <HBox alignment="CENTER">
+                <Label text="Lat.">
+                    <HBox.margin>
+                        <Insets right="5.0"/>
+                    </HBox.margin>
+                </Label>
+                <TextField fx:id="lat" styleClass="txt-coordinate"/>
+                <Label text="Lon.">
+                    <HBox.margin>
+                        <Insets left="5.0" right="5.0"/>
+                    </HBox.margin>
+                </Label>
+                <TextField fx:id="lon" styleClass="txt-coordinate"/>
+            </HBox>
+            <ImageView fitHeight="72.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
+                <VBox.margin>
+                    <Insets bottom="25.0" top="25.0"/>
+                </VBox.margin>
+                <Image url="@/images/weather-72x72.png"/>
+            </ImageView>
+            <VBox alignment="CENTER" prefHeight="190.0" prefWidth="460.0">
+                <Label fx:id="temperatureValue" styleClass="lbl-temperature" text="22,0 °C">
+                    <font>
+                        <Font name="System Bold" size="75.0"/>
+                    </font>
+                </Label>
+                <Slider fx:id="temperature" max="60.0" min="-30.0" showTickLabels="true" showTickMarks="true"
+                        value="22.0">
+                    <VBox.margin>
+                        <Insets top="25.0"/>
+                    </VBox.margin>
+                </Slider>
+            </VBox>
         </VBox>
     </center>
     <opaqueInsets>
@@ -81,51 +73,47 @@
     </opaqueInsets>
     <right>
         <AnchorPane BorderPane.alignment="CENTER">
-            <children>
-                <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                            AnchorPane.topAnchor="0.0">
-                    <bottom>
-                        <ImageView accessibleRole="BUTTON" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true"
-                                   preserveRatio="true" BorderPane.alignment="CENTER">
-                            <image>
-                                <Image url="@../images/red-32x32.png"/>
-                            </image>
-                        </ImageView>
-                    </bottom>
-                    <top>
-                        <VBox alignment="CENTER" BorderPane.alignment="CENTER">
-                            <children>
-                                <Label text="Datenübertragung">
-                                    <padding>
-                                        <Insets bottom="5.0" top="15.0"/>
-                                    </padding>
-                                    <font>
-                                        <Font name="System Bold" size="12.0"/>
-                                    </font>
-                                </Label>
-                                <ToggleButton mnemonicParsing="false" styleClass="btn-automatic" text="Automatisch"/>
-                                <Label text="5s">
-                                    <padding>
-                                        <Insets top="25.0"/>
-                                    </padding>
-                                </Label>
-                                <Slider max="60.0" showTickLabels="true" showTickMarks="true" value="5.0"/>
-                            </children>
-                        </VBox>
-                    </top>
-                    <center>
-                        <ImageView accessibleRole="BUTTON" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true"
-                                   preserveRatio="true" BorderPane.alignment="CENTER">
-                            <image>
-                                <Image url="@../images/refresh-32x32.png"/>
-                            </image>
-                        </ImageView>
-                    </center>
-                </BorderPane>
-            </children>
             <BorderPane.margin>
                 <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
             </BorderPane.margin>
+            <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                        AnchorPane.topAnchor="0.0">
+                <bottom>
+                    <ImageView fx:id="connection" accessibleRole="BUTTON" fitHeight="32.0" fitWidth="32.0"
+                               pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                        <BorderPane.margin>
+                            <Insets bottom="25.0"/>
+                        </BorderPane.margin>
+                        <Image url="@/images/red-32x32.png"/>
+                    </ImageView>
+                </bottom>
+                <top>
+                    <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+                        <Label text="Datenübertragung">
+                            <padding>
+                                <Insets bottom="5.0" top="10.0"/>
+                            </padding>
+                            <font>
+                                <Font name="System Bold" size="12.0"/>
+                            </font>
+                        </Label>
+                        <ToggleButton fx:id="automatic" mnemonicParsing="false" onAction="#automaticChanged"
+                                      styleClass="btn-automatic" text="Automatisch"/>
+                        <Label fx:id="updateValue" text="5s">
+                            <padding>
+                                <Insets top="20.0"/>
+                            </padding>
+                        </Label>
+                        <Slider fx:id="interval" max="60.0" showTickLabels="true" showTickMarks="true" value="5.0"/>
+                    </VBox>
+                </top>
+                <center>
+                    <ImageView accessibleRole="BUTTON" fitHeight="32.0" fitWidth="32.0" onMouseClicked="#manualRefresh"
+                               pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                        <Image url="@/images/refresh-32x32.png"/>
+                    </ImageView>
+                </center>
+            </BorderPane>
         </AnchorPane>
     </right>
 </BorderPane>
