@@ -35,6 +35,8 @@ public class MainController {
     @FXML
     private ToggleButton automatic;
     @FXML
+    public ComboBox interfaces;
+    @FXML
     private Label updateValue;
     @FXML
     private Slider interval;
@@ -53,6 +55,10 @@ public class MainController {
     }
 
     public void automaticChanged(ActionEvent actionEvent) {
+
+    }
+
+    public void interfaceChanged(ActionEvent actionEvent) {
 
     }
 }

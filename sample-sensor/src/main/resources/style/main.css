@@ -10,7 +10,7 @@
     -fx-text-fill: #ffffff;
 }
 
-.cbx-location {
+.cbx-locations, .cbx-interfaces {
     -fx-background-color: #d3d3d3;
     -fx-control-inner-background: #d3d3d3;
 }

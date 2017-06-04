@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0"
-            prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
+            prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="me.wirries.weatheriotshowcase.sensor.sample.views.MainController">
     <center>
         <VBox BorderPane.alignment="CENTER">
@@ -22,7 +22,7 @@
                 </padding>
             </Label>
             <AnchorPane>
-                <ComboBox fx:id="locations" onAction="#locationChanged" styleClass="cbx-location"
+                <ComboBox fx:id="locations" onAction="#locationChanged" styleClass="cbx-locations"
                           AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0"/>
             </AnchorPane>
             <Label text="Koordinaten">
@@ -97,8 +97,14 @@
                                 <Font name="System Bold" size="12.0"/>
                             </font>
                         </Label>
+                        <ComboBox fx:id="interfaces" onAction="#interfaceChanged" prefWidth="100.0"
+                                  styleClass="cbx-interfaces">
+                            <VBox.margin>
+                                <Insets bottom="5.0"/>
+                            </VBox.margin>
+                        </ComboBox>
                         <ToggleButton fx:id="automatic" mnemonicParsing="false" onAction="#automaticChanged"
-                                      styleClass="btn-automatic" text="Automatisch"/>
+                                      prefWidth="100.0" styleClass="btn-automatic" text="Automatisch"/>
                         <Label fx:id="updateValue" text="5s">
                             <padding>
                                 <Insets top="20.0"/>
