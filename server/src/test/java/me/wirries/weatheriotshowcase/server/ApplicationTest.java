@@ -6,11 +6,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
- * Tests for {@link ServerApplication}.
+ * Tests for {@link Application}.
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class ServerApplicationTest {
+public class ApplicationTest {
 
     @Test
     public void contextLoads() {

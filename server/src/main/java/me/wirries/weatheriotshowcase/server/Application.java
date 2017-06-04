@@ -17,9 +17,9 @@ import java.util.Arrays;
  * @since 06.05.2017
  */
 @SpringBootApplication
-public class ServerApplication extends SpringBootServletInitializer {
+public class Application extends SpringBootServletInitializer {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ServerApplication.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Application.class);
 
     /**
      * Starting the application.
@@ -27,14 +27,14 @@ public class ServerApplication extends SpringBootServletInitializer {
      * @param args Arguments from command line
      */
     public static void main(final String[] args) {
-        SpringApplication.run(ServerApplication.class, args);
+        SpringApplication.run(Application.class, args);
         final String arguments = Arrays.toString(args);
         LOG.info("Spring Boot Application started with {} ...", arguments);
     }
 
     @Override
     protected SpringApplicationBuilder configure(final SpringApplicationBuilder builder) {
-        return builder.sources(ServerApplication.class);
+        return builder.sources(Application.class);
     }
 
 }
