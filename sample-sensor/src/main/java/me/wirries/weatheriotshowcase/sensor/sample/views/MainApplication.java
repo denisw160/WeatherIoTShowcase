@@ -18,37 +18,55 @@ import org.springframework.context.ApplicationContext;
  * @version 1.0
  * @since 04.06.2017
  */
-public class MainWindow extends Application {
+public class MainApplication extends Application {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MainWindow.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MainApplication.class);
 
     private static ApplicationContext context;
-    private static ApplicationProperties properties;
 
     /**
      * Start the application.
      */
-    public static void run(final ApplicationContext ctx, final ApplicationProperties props) {
+    public static void launch(final ApplicationContext ctx) {
         context = ctx;
-        properties = props;
         LOGGER.info("Starting JavaFX window ");
         launch();
+    }
+
+    /**
+     * Return the properties of the application.
+     *
+     * @return ApplicationProperties
+     */
+    public static ApplicationProperties getProperties() {
+        return getBean(ApplicationProperties.class);
+    }
+
+    /**
+     * Return the bean of the give type.
+     *
+     * @param type Type of the Bean
+     * @param <T>  Type
+     * @return Bean
+     */
+    public static <T> T getBean(final Class<T> type) {
+        return context.getBean(type);
     }
 
     @Override
     public void start(final Stage stage) throws Exception {
         final Parent root = FXMLLoader.load(getClass().getResource("/views/MainView.fxml"));
-        final Scene scene = new Scene(root, properties.getWidth(), properties.getHeight());
+        final Scene scene = new Scene(root, getProperties().getWidth(), getProperties().getHeight());
         scene.getStylesheets().add(getClass().getResource("/style/main.css").toExternalForm());
 
-        stage.setTitle(properties.getName());
-        stage.setResizable(properties.isResizeable());
+        stage.setTitle(getProperties().getName());
+        stage.setResizable(getProperties().isResizeable());
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/weather-72x72.png")));
 
         stage.setScene(scene);
         stage.show();
 
-        LOGGER.info("{} {} started", properties.getName(), properties.getVersion());
+        LOGGER.info("{} {} started", getProperties().getName(), getProperties().getVersion());
     }
 
 }

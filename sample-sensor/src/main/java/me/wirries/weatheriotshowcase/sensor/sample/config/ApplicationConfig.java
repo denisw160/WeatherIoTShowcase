@@ -1,6 +1,6 @@
 package me.wirries.weatheriotshowcase.sensor.sample.config;
 
-import me.wirries.weatheriotshowcase.sensor.sample.views.MainWindow;
+import me.wirries.weatheriotshowcase.sensor.sample.views.MainApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationRunner;
@@ -44,11 +44,11 @@ public class ApplicationConfig {
      * Start the JAVAFX application.
      */
     @Bean
-    @Description("Start the main window of the application")
-    public ApplicationRunner startApplication(final ApplicationContext ctx, final ApplicationProperties props) {
+    @Description("Start the JAVAFX application")
+    public ApplicationRunner startApplication(final ApplicationContext ctx) {
         return args -> {
-            LOGGER.trace("");
-            MainWindow.run(ctx, props);
+            LOGGER.trace("Starting the JAVAFX application");
+            MainApplication.launch(ctx);
         };
     }
 
