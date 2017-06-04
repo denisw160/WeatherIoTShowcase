@@ -7,14 +7,13 @@
 
     <!-- Parent -->
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.2.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <groupId>me.wirries.weatheriotshowcase</groupId>
+        <artifactId>weatheriotshowcase</artifactId>
+        <version>0.1-SNAPSHOT</version>
+        <relativePath>../.</relativePath>
     </parent>
 
     <!-- Project -->
-    <groupId>me.wirries.weatheriotshowcase</groupId>
     <artifactId>server</artifactId>
     <version>0.1-SNAPSHOT</version>
 
@@ -24,52 +23,8 @@
         This is the backend of the system. The backend received the data and display the information.
     </description>
 
-    <!-- Additional -->
-    <url>http://blog.wirries.me</url>
-    <inceptionYear>2017</inceptionYear>
-
-    <!-- Team -->
-    <developers>
-        <developer>
-            <id>denisw160</id>
-            <name>Denis Wirries</name>
-            <email>denis@wirries.me</email>
-            <roles>
-                <role>Architect</role>
-                <role>Developer</role>
-            </roles>
-        </developer>
-    </developers>
-
-    <!-- SCM -->
-    <scm>
-        <url>https://github.com/denisw160/WeatherIoTShowcase</url>
-        <connection>scm:git:git://github.com/denisw160/WeatherIoTShowcase.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com:denisw160/WeatherIoTShowcase.git</developerConnection>
-        <tag>master</tag>
-    </scm>
-
-    <!-- CI -->
-    <ciManagement>
-        <system>Travis CI</system>
-        <url>https://travis-ci.org/denisw160/WeatherIoTShowcase</url>
-    </ciManagement>
-
     <!-- Packaging -->
     <packaging>war</packaging>
-
-    <!-- Properties -->
-    <properties>
-        <java.version>1.8</java.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.build.resourcesEncoding>windows-1252</project.build.resourcesEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    </properties>
-
-    <!-- Prerequisites -->
-    <prerequisites>
-        <maven>3.3</maven>
-    </prerequisites>
 
     <!-- Build -->
     <build>
@@ -88,15 +43,6 @@
 
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.0.2</version>
-                <configuration>
-                    <encoding>${project.build.resourcesEncoding}</encoding>
-                </configuration>
-            </plugin>
-
-            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
@@ -108,13 +54,11 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.5</version>
         </dependency>
 
         <dependency>
             <groupId>net.sf.dozer</groupId>
             <artifactId>dozer</artifactId>
-            <version>5.5.1</version>
         </dependency>
 
         <dependency>
@@ -139,18 +83,15 @@
         <dependency>
             <groupId>com.google.maps</groupId>
             <artifactId>google-maps-services</artifactId>
-            <version>0.1.20</version>
         </dependency>
 
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
-            <version>2.6.1</version>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.6.1</version>
         </dependency>
 
         <dependency>
@@ -162,19 +103,16 @@
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
-            <version>3.3.7-1</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>font-awesome</artifactId>
-            <version>4.7.0</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>highcharts</artifactId>
-            <version>5.0.10</version>
             <scope>runtime</scope>
         </dependency>
 
