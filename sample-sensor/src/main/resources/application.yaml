@@ -10,10 +10,14 @@ logging:
   level:
     root: INFO
     org.springframework.web: INFO
-    me.wirries.weatheriotshowcase.server: DEBUG
+    me.wirries.weatheriotshowcase.sensor: DEBUG
 
 ## Sensor Window ##
 window:
   height: 480
   width: 640
   resizeable: false
+
+## Alive-Server ##
+server:
+  ipAddress: @server.ipAddress@

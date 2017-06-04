@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import me.wirries.weatheriotshowcase.sensor.sample.config.ApplicationProperties;
+import me.wirries.weatheriotshowcase.sensor.sample.service.AliveService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -55,7 +56,12 @@ public class MainApplication extends Application {
 
     @Override
     public void start(final Stage stage) throws Exception {
-        final Parent root = FXMLLoader.load(getClass().getResource("/views/MainView.fxml"));
+        final FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/MainView.fxml"));
+        final Parent root = loader.load();
+
+        final MainController controller = loader.getController();
+        controller.setAliveService(getBean(AliveService.class));
+
         final Scene scene = new Scene(root, getProperties().getWidth(), getProperties().getHeight());
         scene.getStylesheets().add(getClass().getResource("/style/main.css").toExternalForm());
 
@@ -65,6 +71,11 @@ public class MainApplication extends Application {
 
         stage.setScene(scene);
         stage.show();
+
+        stage.setOnCloseRequest(we -> {
+            LOGGER.debug("Stage is closing - calling exit");
+            System.exit(0);
+        });
 
         LOGGER.info("{} {} started", getProperties().getName(), getProperties().getVersion());
     }

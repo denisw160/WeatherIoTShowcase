@@ -105,7 +105,7 @@
                         </ComboBox>
                         <ToggleButton fx:id="automatic" mnemonicParsing="false" onAction="#automaticChanged"
                                       prefWidth="100.0" styleClass="btn-automatic" text="Automatisch"/>
-                        <Label fx:id="updateValue" text="5s">
+                        <Label fx:id="intervalValue" text="5s">
                             <padding>
                                 <Insets top="20.0"/>
                             </padding>
