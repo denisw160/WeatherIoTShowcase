@@ -19,7 +19,7 @@ import java.util.List;
  */
 public final class ClassUtils {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ClassUtils.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ClassUtils.class);
 
     /**
      * suffix = .class (len=6).
@@ -52,7 +52,7 @@ public final class ClassUtils {
      * @throws IOException Fehler beim Zugriff auf das Package
      */
     public static Class[] getClasses(final String packageName, final boolean recursive) throws IOException {
-        LOG.trace("Scanning classes in package {}", packageName);
+        LOGGER.trace("Scanning classes in package {}", packageName);
 
         final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         assert classLoader != null;
@@ -66,13 +66,13 @@ public final class ClassUtils {
             dirs.add(new File(resource.getFile()));
         }
 
-        LOG.trace("Found {} directories for package", dirs.size());
+        LOGGER.trace("Found {} directories for package", dirs.size());
         final List<Class> classes = new ArrayList<Class>();
         for (final File directory : dirs) {
             classes.addAll(findClasses(directory, packageName, recursive));
         }
 
-        LOG.trace("Found {} classes in package", classes.size());
+        LOGGER.trace("Found {} classes in package", classes.size());
         return classes.toArray(new Class[classes.size()]);
     }
 
@@ -89,7 +89,7 @@ public final class ClassUtils {
                                            final String packageName,
                                            final boolean recursive) {
 
-        LOG.trace("Scanning classes in directory {}", directory);
+        LOGGER.trace("Scanning classes in directory {}", directory);
 
         final List<Class> classes = new ArrayList<Class>();
         if (!directory.exists()) {
@@ -122,13 +122,13 @@ public final class ClassUtils {
     private static void addClassForName(final List<Class> classes, final String packageName, final File file) {
         final String fileName = file.getName();
         final String className = packageName + '.' + fileName.substring(0, fileName.length() - LEN_SUFFIX);
-        LOG.trace("Get class for name {}", className);
+        LOGGER.trace("Get class for name {}", className);
 
         try {
             final Class<?> clazz = Class.forName(className);
             classes.add(clazz);
         } catch (final ClassNotFoundException e) {
-            LOG.warn("Class {} not found, exp {}", className, e);
+            LOGGER.warn("Class {} not found, exp {}", className, e);
         }
     }
 

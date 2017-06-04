@@ -26,7 +26,7 @@ import static org.junit.Assert.*;
 @RunWith(Parameterized.class)
 public abstract class AbstractParameterizedClassTests {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AbstractParameterizedClassTests.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractParameterizedClassTests.class);
 
     /**
      * Parametrisierte Test-Klasse.
@@ -40,7 +40,7 @@ public abstract class AbstractParameterizedClassTests {
      */
     AbstractParameterizedClassTests(final Class clazz) {
         this.clazz = clazz;
-        LOG.debug("Create test for class {}", clazz);
+        LOGGER.debug("Create test for class {}", clazz);
     }
 
     /**
@@ -65,7 +65,7 @@ public abstract class AbstractParameterizedClassTests {
     static Collection<Object[]> getClassesForTest(final String packageName,
                                                   final String[] ignoredClassNames) {
 
-        LOG.debug("Load test classes from package {}", packageName);
+        LOGGER.debug("Load test classes from package {}", packageName);
         final Class[] classes = getClasses(packageName);
 
         final Collection<Object[]> result = new ArrayList<Object[]>();
@@ -77,7 +77,7 @@ public abstract class AbstractParameterizedClassTests {
             }
         }
 
-        LOG.debug("Found {} classes for test", result.size());
+        LOGGER.debug("Found {} classes for test", result.size());
         return result;
     }
 
@@ -120,14 +120,14 @@ public abstract class AbstractParameterizedClassTests {
      * @param <T>   Typ
      */
     static <T> void callAllConstructors(final Class<T> clazz) {
-        LOG.debug("Call all constructors for {}", clazz);
+        LOGGER.debug("Call all constructors for {}", clazz);
         try {
             assertNotNull("class is null", clazz);
             final Constructor<T> declaredConstructor = clazz.getDeclaredConstructor();
             declaredConstructor.setAccessible(true);
             assertNotNull("new instance is null", newInstance(declaredConstructor));
         } catch (final NoSuchMethodException ex) {
-            LOG.debug("Class " + clazz + " has no default constructor", ex);
+            LOGGER.debug("Class " + clazz + " has no default constructor", ex);
         }
     }
 
@@ -139,7 +139,7 @@ public abstract class AbstractParameterizedClassTests {
      */
     @SuppressWarnings({"EqualsWithItself", "ObjectEqualsNull"})
     static <T> void callDefaultObjectMethods(final Class<T> clazz) {
-        LOG.debug("Call all constructors for {}", clazz);
+        LOGGER.debug("Call all constructors for {}", clazz);
         try {
             assertNotNull("class is null", clazz);
             final Constructor<T> declaredConstructor = clazz.getDeclaredConstructor();
@@ -157,7 +157,7 @@ public abstract class AbstractParameterizedClassTests {
             assertNotNull("new instance 2 is null", newInstance);
             assertNotNull(newInstance.equals(newInstance2));
         } catch (final NoSuchMethodException ex) {
-            LOG.debug("Class {} has no default constructor, Exp: {}", clazz, ex);
+            LOGGER.debug("Class {} has no default constructor, Exp: {}", clazz, ex);
         }
     }
 
@@ -173,7 +173,7 @@ public abstract class AbstractParameterizedClassTests {
             if (!method.getName().toUpperCase().contains("TEST")
                     && Modifier.isPublic(method.getModifiers())
                     && Modifier.isStatic(method.getModifiers())) {
-                LOG.debug("call static method {}", method.getName());
+                LOGGER.debug("call static method {}", method.getName());
                 invoke(clazz, method, null);
             }
         }
@@ -184,7 +184,7 @@ public abstract class AbstractParameterizedClassTests {
             if (!field.getName().toUpperCase().contains("TEST")
                     && Modifier.isPublic(field.getModifiers())
                     && Modifier.isStatic(field.getModifiers())) {
-                LOG.debug("call static field {}", field.getName());
+                LOGGER.debug("call static field {}", field.getName());
                 get(clazz, field, null);
             }
         }
@@ -213,7 +213,7 @@ public abstract class AbstractParameterizedClassTests {
      * @param constructor Konstruktor
      */
     private static void callAllPublicGetters(final Class clazz, final Constructor constructor) {
-        LOG.debug("create new instance for {}", clazz.getSimpleName());
+        LOGGER.debug("create new instance for {}", clazz.getSimpleName());
         final Object o = newInstance(constructor);
         assertNotNull("New Instance for constructor " + constructor + " is null", o);
 
@@ -222,7 +222,7 @@ public abstract class AbstractParameterizedClassTests {
         for (final Method method : methods) {
             if (!method.getName().toUpperCase().contains("TEST")
                     && Modifier.isPublic(method.getModifiers())) {
-                LOG.debug("call method {}", method.getName());
+                LOGGER.debug("call method {}", method.getName());
                 invoke(clazz, method, o);
             }
         }
@@ -232,7 +232,7 @@ public abstract class AbstractParameterizedClassTests {
         for (final Field method : fields) {
             if (!method.getName().toUpperCase().contains("TEST")
                     && Modifier.isPublic(method.getModifiers())) {
-                LOG.debug("call field {}", method.getName());
+                LOGGER.debug("call field {}", method.getName());
                 get(clazz, method, o);
             }
         }
@@ -249,7 +249,7 @@ public abstract class AbstractParameterizedClassTests {
 
         for (final Constructor constructor : constructors) {
             if (Modifier.isPublic(constructor.getModifiers()) && constructor.getParameterCount() == 0) {
-                LOG.debug("create new instance for {}", clazz.getSimpleName());
+                LOGGER.debug("create new instance for {}", clazz.getSimpleName());
                 final Object o = newInstance(constructor);
                 assertNotNull("New Instance for constructor " + constructor + " is null", o);
 
@@ -276,7 +276,7 @@ public abstract class AbstractParameterizedClassTests {
         if (!method.getName().toUpperCase().contains("TEST")
                 && Modifier.isPublic(method.getModifiers())
                 && method.getParameterTypes().length == 1) {
-            LOG.debug("call method {}", method.getName());
+            LOGGER.debug("call method {}", method.getName());
             final Class<?> aClass = method.getParameterTypes()[0];
             if (isDate(aClass))
                 invoke(clazz, method, o, new Date());
@@ -372,7 +372,7 @@ public abstract class AbstractParameterizedClassTests {
      */
     private static void throwException(final Class clazz, final String method, final Exception e) {
         final String message = e.getClass().getSimpleName() + " thrown in method " + method + " from class " + clazz.getSimpleName();
-        LOG.error(message, e);
+        LOGGER.error(message, e);
         throw new RuntimeException(message, e);
     }
 
