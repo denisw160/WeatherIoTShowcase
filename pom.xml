@@ -252,13 +252,6 @@
                 <version>1.0.13</version>
             </dependency>
 
-            <!-- JavaFX -->
-            <dependency>
-                <groupId>com.guigarage</groupId>
-                <artifactId>flatter</artifactId>
-                <version>0.7</version>
-            </dependency>
-
             <!-- Testing -->
             <dependency>
                 <groupId>junit</groupId>

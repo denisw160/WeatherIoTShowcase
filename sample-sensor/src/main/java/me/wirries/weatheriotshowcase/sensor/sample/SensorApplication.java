@@ -1,7 +1,5 @@
 package me.wirries.weatheriotshowcase.sensor.sample;
 
-import com.guigarage.flatterfx.FlatterFX;
-import com.guigarage.flatterfx.FlatterInputType;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -32,11 +30,11 @@ public class SensorApplication extends Application {
         stage.setTitle("Sensor");
         stage.setResizable(false);
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/weather-72x72.png")));
+        scene.getStylesheets().add(getClass().getResource("/style/main.css").toExternalForm());
 
         stage.setScene(scene);
 
         stage.show();
-        FlatterFX.style(FlatterInputType.DEFAULT);
     }
 
     /**

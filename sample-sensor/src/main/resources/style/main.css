@@ -1,0 +1,30 @@
+.root {
+    -fx-background-color: #272b30;
+}
+
+.label {
+    -fx-text-fill: #c8c8c8;
+}
+
+.lbl-temperature {
+    -fx-text-fill: #ffffff;
+}
+
+.cbx-location {
+    -fx-background-color: #d3d3d3;
+    -fx-control-inner-background: #d3d3d3;
+}
+
+.btn-automatic {
+    -fx-background-color: #8b0000;
+    -fx-text-fill: #ffffff;
+}
+
+.btn-automatic:selected {
+    -fx-background-color: #006400;
+    -fx-text-fill: #ffffff;
+}
+
+.txt-coordinate {
+    -fx-background-color: #d3d3d3;
+}

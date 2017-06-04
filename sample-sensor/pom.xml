@@ -57,11 +57,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.guigarage</groupId>
-            <artifactId>flatter</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
