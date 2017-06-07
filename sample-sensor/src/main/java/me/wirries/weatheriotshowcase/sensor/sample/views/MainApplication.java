@@ -8,9 +8,12 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import me.wirries.weatheriotshowcase.sensor.sample.config.ApplicationProperties;
 import me.wirries.weatheriotshowcase.sensor.sample.service.AliveService;
+import me.wirries.weatheriotshowcase.sensor.sample.service.WeatherService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
+
+import java.util.Map;
 
 /**
  * This is the main stage of the application.
@@ -54,6 +57,17 @@ public class MainApplication extends Application {
         return context.getBean(type);
     }
 
+    /**
+     * Return the beans of the give type.
+     *
+     * @param type Type of the Bean
+     * @param <T>  Type
+     * @return Beans
+     */
+    public static <T> Map<String, T> getBeans(final Class<T> type) {
+        return context.getBeansOfType(type);
+    }
+
     @Override
     public void start(final Stage stage) throws Exception {
         final FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/MainView.fxml"));
@@ -61,6 +75,7 @@ public class MainApplication extends Application {
 
         final MainController controller = loader.getController();
         controller.setAliveService(getBean(AliveService.class));
+        controller.setWeatherServices(getBeans(WeatherService.class));
 
         final Scene scene = new Scene(root, getProperties().getWidth(), getProperties().getHeight());
         scene.getStylesheets().add(getClass().getResource("/style/main.css").toExternalForm());

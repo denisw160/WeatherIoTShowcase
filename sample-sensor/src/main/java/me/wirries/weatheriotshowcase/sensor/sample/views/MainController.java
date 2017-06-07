@@ -1,25 +1,24 @@
 package me.wirries.weatheriotshowcase.sensor.sample.views;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import me.wirries.weatheriotshowcase.sensor.sample.model.Interfaces;
 import me.wirries.weatheriotshowcase.sensor.sample.model.Locations;
 import me.wirries.weatheriotshowcase.sensor.sample.service.AliveService;
+import me.wirries.weatheriotshowcase.sensor.sample.service.WeatherService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -61,12 +60,21 @@ public class MainController {
 
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
+    private Runnable sendTask;
+    private ScheduledFuture<?> sendFuture;
+
     private boolean transferActive;
 
     private AliveService aliveService;
 
     void setAliveService(final AliveService aliveService) {
         this.aliveService = aliveService;
+    }
+
+    private Map<String, WeatherService> weatherServices;
+
+    void setWeatherServices(final Map<String, WeatherService> weatherServices) {
+        this.weatherServices = weatherServices;
     }
 
     @FXML
@@ -86,20 +94,18 @@ public class MainController {
         // init locations
         locations.setItems(FXCollections.observableArrayList(Locations.list()));
         locations.getSelectionModel().select(0);
-        locationChanged(null);
+        locationChanged();
 
         // init temperature
-        temperature.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(final ObservableValue<? extends Number> observable, final Number oldValue, final Number newValue) {
-                temperature.setValue(round(newValue.doubleValue(), 1));
-                updateValues();
-            }
+        temperature.valueProperty().addListener((observable, oldValue, newValue) -> {
+            temperature.setValue(round(newValue.doubleValue(), 1));
+            updateValues();
         });
         temperature.setValue(20.0);
 
         // init jobs
         activateAliveJob();
+        createSendJob();
 
         LOGGER.debug("User Interface created");
     }
@@ -118,6 +124,13 @@ public class MainController {
         scheduler.scheduleAtFixedRate(aliveTask, 1, 30, SECONDS);
     }
 
+    private void createSendJob() {
+        sendTask = () -> {
+            LOGGER.debug("Sending data");
+            send();
+        };
+    }
+
     private void updateValues() {
         final Double value = interval.getValue();
         intervalValue.setText(value.intValue() + "s");
@@ -125,9 +138,16 @@ public class MainController {
         temperatureValue.setText(temperature.getValue() + "°C");
     }
 
-    public void automaticChanged(final ActionEvent actionEvent) {
+    public void automaticChanged() {
         transferActive = !transferActive;
         updateFieldState();
+
+        if (transferActive) {
+            final int period = ((Double) interval.getValue()).intValue();
+            sendFuture = scheduler.scheduleAtFixedRate(sendTask, 0, period, SECONDS);
+        } else if (sendFuture != null) {
+            sendFuture.cancel(false);
+        }
     }
 
     private void updateFieldState() {
@@ -138,12 +158,28 @@ public class MainController {
         lon.setDisable(transferActive);
     }
 
-    public void manualRefresh(final MouseEvent mouseEvent) {
+    public void manualRefresh() {
         if (transferActive) return;
-        System.out.println("Refresh");
+
+        send();
     }
 
-    public void locationChanged(final ActionEvent actionEvent) {
+    private void send() {
+        final WeatherService service = getService(interfaces.getSelectionModel().getSelectedItem().name());
+
+        final double lat = Double.parseDouble(this.lat.getText());
+        final double lon = Double.parseDouble(this.lon.getText());
+
+        final double temp = temperature.getValue();
+
+        service.send(lat, lon, temp);
+    }
+
+    private WeatherService getService(final String type) {
+        return weatherServices.get(type);
+    }
+
+    public void locationChanged() {
         final Locations item = locations.getSelectionModel().getSelectedItem();
         lat.setText(String.valueOf(item.getLat()));
         lon.setText(String.valueOf(item.getLon()));
@@ -157,7 +193,7 @@ public class MainController {
         }
     }
 
-    public void interfaceChanged(final ActionEvent actionEvent) {
+    public void interfaceChanged() {
         // no actions yet
     }
 
@@ -168,4 +204,5 @@ public class MainController {
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
+
 }

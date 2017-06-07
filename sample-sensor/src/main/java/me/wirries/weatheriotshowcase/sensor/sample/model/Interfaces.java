@@ -12,6 +12,7 @@ import java.util.List;
  */
 public enum Interfaces {
 
+    SYSTEMOUT("Debug"),
     REST("REST API"),
     MQTT("MQTT API"),
     KAA("KAA Client API");
@@ -32,7 +33,7 @@ public enum Interfaces {
     }
 
     public static List<Interfaces> list() {
-        return Arrays.asList(REST, MQTT, KAA);
+        return Arrays.asList(REST, MQTT, KAA, SYSTEMOUT);
     }
 
 }
