@@ -21,3 +21,7 @@ window:
 ## Alive-Server ##
 server:
   ipAddress: @server.ipAddress@
+
+## API ##
+rest:
+  url: http://localhost:8080/rest/message/temperature

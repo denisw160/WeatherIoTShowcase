@@ -2,7 +2,10 @@ package me.wirries.weatheriotshowcase.sensor.sample.views;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import me.wirries.weatheriotshowcase.sensor.sample.model.Interfaces;
@@ -49,8 +52,6 @@ public class MainController {
     @FXML
     private ImageView connection;
 
-    @FXML
-    private ToggleButton automatic;
     @FXML
     public ComboBox<Interfaces> interfaces;
     @FXML

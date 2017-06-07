@@ -6,6 +6,7 @@ import me.wirries.weatheriotshowcase.server.service.ProcessingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,7 +37,7 @@ public class MessageController {
      */
     @ApiOperation(value = "This services stores the temperature message and updates the system.")
     @RequestMapping(value = "/rest/message/temperature", method = RequestMethod.POST)
-    public void temperature(final TemperatureMessage message) {
+    public void temperature(@RequestBody final TemperatureMessage message) {
         LOGGER.debug("Receiving new temperature message {}", message);
         processingService.process(message);
     }

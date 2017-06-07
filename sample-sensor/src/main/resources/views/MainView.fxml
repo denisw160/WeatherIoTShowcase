@@ -103,7 +103,7 @@
                                 <Insets bottom="5.0"/>
                             </VBox.margin>
                         </ComboBox>
-                        <ToggleButton fx:id="automatic" mnemonicParsing="false" onAction="#automaticChanged"
+                        <ToggleButton mnemonicParsing="false" onAction="#automaticChanged"
                                       prefWidth="100.0" styleClass="btn-automatic" text="Automatisch"/>
                         <Label fx:id="intervalValue" text="5s">
                             <padding>
