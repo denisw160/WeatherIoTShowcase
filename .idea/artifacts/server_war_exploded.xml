@@ -90,6 +90,11 @@
           <element id="library" level="project" name="Maven: net.bull.javamelody:javamelody-spring-boot-starter:1.65.1" />
           <element id="library" level="project" name="Maven: net.bull.javamelody:javamelody-core:1.65.0" />
           <element id="library" level="project" name="Maven: org.jrobin:jrobin:1.5.9" />
+          <element id="library" level="project" name="Maven: org.springframework.integration:spring-integration-mqtt:4.3.8.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.integration:spring-integration-core:4.3.8.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-messaging:4.3.7.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.retry:spring-retry:1.2.0.RELEASE" />
+          <element id="library" level="project" name="Maven: org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.0.2" />
           <element id="library" level="project" name="Maven: org.webjars:bootstrap:3.3.7-1" />
           <element id="library" level="project" name="Maven: org.webjars:jquery:1.11.1" />
           <element id="library" level="project" name="Maven: org.webjars:font-awesome:4.7.0" />

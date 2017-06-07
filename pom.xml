@@ -308,6 +308,7 @@
             <dependency>
                 <groupId>net.bull.javamelody</groupId>
                 <artifactId>javamelody-spring-boot-starter</artifactId>
+                <version>1.65.1</version>
             </dependency>
 
             <!-- Spring is provided by Spring Boot -->

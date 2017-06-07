@@ -22,6 +22,11 @@ window:
 server:
   ipAddress: @server.ipAddress@
 
-## API ##
+## REST API ##
 rest:
   url: http://localhost:8080/rest/message/temperature
+
+## MQTT ##
+mqtt:
+  url: 'tcp://@server.ipAddress@:1883'
+  topic: weather

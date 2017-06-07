@@ -2,6 +2,8 @@
 var map;
 var markers = [];
 
+var markerCluster;
+
 var url;
 
 
@@ -18,6 +20,10 @@ function deleteMarkers() {
     while (markers.length) {
         var pop = markers.pop();
         pop.setMap(null);
+    }
+
+    if (markerCluster) {
+        markerCluster.clearMarkers();
     }
 
     console.debug("Markers cleared");
@@ -43,10 +49,10 @@ function updateMarkers() {
                 });
 
                 markers.push(marker);
+                markerCluster.addMarker(marker, false);
             }
 
-            var markerCluster = new MarkerClusterer(map, markers,
-                {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+            markerCluster.redraw();
         });
     }
 
@@ -62,6 +68,9 @@ function initMap() {
         center: {lat: 52.376189, lng: 9.740565},
         zoom: 4
     });
+
+    markerCluster = new MarkerClusterer(map, [],
+        {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 
     google.maps.event.addListener(map, 'idle', updateMarkers);
     console.debug("Google Map ready");

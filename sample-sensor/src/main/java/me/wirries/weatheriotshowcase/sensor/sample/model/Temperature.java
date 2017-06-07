@@ -1,5 +1,7 @@
 package me.wirries.weatheriotshowcase.sensor.sample.model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
@@ -59,6 +61,20 @@ public class Temperature {
                 .append("longitude", longitude)
                 .append("temperature", temperature)
                 .toString();
+    }
+
+    public static String convertToJson(final double latitude,
+                                       final double longitude,
+                                       final double temperature) throws JsonProcessingException {
+
+        final Temperature obj = new Temperature();
+        obj.setStationId("sample");
+        obj.setLatitude(latitude);
+        obj.setLongitude(longitude);
+        obj.setTemperature(temperature);
+
+        final ObjectMapper mapper = new ObjectMapper();
+        return mapper.writeValueAsString(obj);
     }
 
 }

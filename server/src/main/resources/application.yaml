@@ -77,3 +77,8 @@ job:
 google:
   api:
     key: @google_api_key@
+
+## MQTT ##
+mqtt:
+  url: 'tcp://@mqtt_server@:1883'
+  topic: weather

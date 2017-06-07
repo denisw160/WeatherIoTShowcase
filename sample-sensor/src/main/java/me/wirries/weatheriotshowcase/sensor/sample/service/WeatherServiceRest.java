@@ -1,9 +1,5 @@
 package me.wirries.weatheriotshowcase.sensor.sample.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import me.wirries.weatheriotshowcase.sensor.sample.model.Temperature;
-import me.wirries.weatheriotshowcase.sensor.sample.views.MainController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +7,8 @@ import org.springframework.http.*;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+
+import static me.wirries.weatheriotshowcase.sensor.sample.model.Temperature.convertToJson;
 
 /**
  * This is the implementation for the REST API.
@@ -22,35 +20,28 @@ import org.springframework.web.client.RestTemplate;
 @Component("REST")
 public class WeatherServiceRest implements WeatherService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MainController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(WeatherServiceRest.class);
 
     @Value("${rest.url}")
     private String url;
 
     @Override
     public void send(final double latitude, final double longitude, final double temperature) {
-        final Temperature obj = new Temperature();
-        obj.setStationId("sample");
-        obj.setLatitude(latitude);
-        obj.setLongitude(longitude);
-        obj.setTemperature(temperature);
-
-        final ObjectMapper mapper = new ObjectMapper();
-
-        LOGGER.debug("Sending {} to {}", obj, url);
-
-        final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
         try {
-            final HttpEntity<String> entity = new HttpEntity<>(mapper.writeValueAsString(obj), headers);
+            final String jsonObj = convertToJson(latitude, longitude, temperature);
+            LOGGER.debug("Sending {} to {}", jsonObj, url);
+
+            final HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+
+            final HttpEntity<String> entity = new HttpEntity<>(jsonObj, headers);
             final RestTemplate restTemplate = new RestTemplate();
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
             final ResponseEntity<Void> response = restTemplate.exchange(url, HttpMethod.POST, entity, Void.class);
 
             LOGGER.debug("Done, Response: {}", response.getStatusCode());
 
-        } catch (final JsonProcessingException e) {
+        } catch (final Exception e) {
             LOGGER.error("Sending failed", e);
         }
     }
