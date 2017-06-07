@@ -10,10 +10,17 @@ var url;
  */
 function deleteMarkers() {
 
-    for (var i = 0; i < markers.length; i++) {
-        markers[i].setMap(map);
+    // for (var i = 0; i < markers.length; i++) {
+    //     markers[i].setMap(null);
+    // }
+    // markers = [];
+
+    while (markers.length) {
+        var pop = markers.pop();
+        pop.setMap(null);
     }
-    markers = [];
+
+    console.debug("Markers cleared");
 }
 
 /**
@@ -37,6 +44,9 @@ function updateMarkers() {
 
                 markers.push(marker);
             }
+
+            var markerCluster = new MarkerClusterer(map, markers,
+                {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
         });
     }
 
