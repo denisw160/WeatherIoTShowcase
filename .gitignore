@@ -2,10 +2,8 @@
 /.settings
 /.project
 /.classpath
-#/.idea
-/.idea/sonarlint/
-/.idea/workspace.xml
-#*.iml
+/.idea
+*.iml
 
 ### Generated ###
 */bin
@@ -20,4 +18,3 @@
 *.ear
 
 ### Project Files ###
-
