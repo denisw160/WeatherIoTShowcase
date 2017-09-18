@@ -1,0 +1,11 @@
+# file: roles/tomcat/handlers/main.yml
+
+#
+# This handlers are used for the tomcat installation.
+#
+
+# Restart tomcat
+- name: restart tomcat8
+  service:
+    name: tomcat8
+    state: restarted

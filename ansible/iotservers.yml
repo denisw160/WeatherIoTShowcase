@@ -1,0 +1,22 @@
+# file: iotservers.yml
+
+#
+# This playbook configures the IoT-Server. The host group iotservers will used.
+# It must be run as privileged user.
+#
+- hosts: iotservers
+  become: yes
+  become_method: sudo
+  roles:
+    - common
+    - java
+    - postfix
+    - apache2
+    - tomcat
+    - mariadb
+    - postgresql
+    - mqtt
+    - zookeeper
+    - mongodb
+    - cassandra
+    - kaa

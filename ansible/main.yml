@@ -1,0 +1,8 @@
+# file: main.yml
+
+#
+# This the main playbook for the IoT-Servers.
+# It must be run as privileged user.
+#
+
+- include: iotservers.yml

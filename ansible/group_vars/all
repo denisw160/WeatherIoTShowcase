@@ -1,0 +1,11 @@
+# file: group_vars/iotservers
+
+#
+# Variables for the IoT Servers
+#
+
+# Users
+iot_password: iot2017
+
+# Mail-Server
+postfix_relyhost: netserver01.home.lan
