@@ -24,10 +24,18 @@
     </description>
 
     <!-- Packaging -->
-    <packaging>war</packaging>
+    <packaging>${packaging.type}</packaging>
 
     <!-- Build -->
     <build>
+        <!-- Set artifact name -->
+        <finalName>ROOT</finalName>
+
+        <!-- Properties for replacing -->
+        <filters>
+            <filter>build.properties</filter>
+        </filters>
+
         <!-- Resources of the application / @xxxxx@ instead of ${xxxxx} -->
         <resources>
             <resource>
@@ -35,11 +43,6 @@
                 <filtering>true</filtering>
             </resource>
         </resources>
-
-        <!-- Properties for replacing -->
-        <filters>
-            <filter>build.properties</filter>
-        </filters>
 
         <plugins>
             <plugin>
@@ -126,5 +129,68 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <!-- Profiles -->
+    <profiles>
+        <!-- Development - run standalone -->
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <packaging.type>jar</packaging.type>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-actuator</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+        <!-- Tomcat - run standalone on Tomcat -->
+        <profile>
+            <id>tomcat</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <packaging.type>war</packaging.type>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-actuator</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+        <!-- SAP Hana Neo - run on SAP Cloud Platform -->
+        <profile>
+            <id>neo</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <packaging.type>war</packaging.type>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-classic</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 
 </project>
