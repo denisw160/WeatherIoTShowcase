@@ -72,6 +72,8 @@ public class ApplicationConfig {
 
     // *** MQTT Client ***
 
+    // TODO add SpringProfile
+
     @Bean("mqttInputChannel")
     @Description("Input from the MQTT channel")
     public MessageChannel mqttInputChannel() {
