@@ -5,4 +5,4 @@
 # It must be run as privileged user.
 #
 
-- include: iotservers.yml
+- include: showcase.yml

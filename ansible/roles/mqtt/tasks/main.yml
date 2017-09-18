@@ -10,3 +10,6 @@
   with_items:
     - mosquitto
     - mosquitto-clients
+
+# TODO Adding password
+# TODO Adding ssl

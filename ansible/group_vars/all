@@ -1,7 +1,7 @@
-# file: group_vars/iotservers
+# file: group_vars/all
 
 #
-# Variables for the IoT Servers
+# Variables for the showcase server
 #
 
 # Users

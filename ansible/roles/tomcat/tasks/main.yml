@@ -15,15 +15,15 @@
     - tomcat8-examples
     - tomcat8-user
 
-# Setup Tomcat
-- name: Change tomcat8 port to 8181
-  replace:
-    path: /etc/tomcat8/server.xml
-    regexp: 'port="8080"'
-    replace: 'port="8181"'
-    backup: yes
-  notify:
-    - restart tomcat8
+# Change Tomcat Port
+#- name: Change tomcat8 port to 8181
+#  replace:
+#    path: /etc/tomcat8/server.xml
+#    regexp: 'port="8080"'
+#    replace: 'port="8181"'
+#    backup: yes
+#  notify:
+#    - restart tomcat8
 - name: Adding tomcat user
   copy:
     src: tomcat-users.xml

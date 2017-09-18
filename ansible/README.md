@@ -9,15 +9,12 @@ Add a NAT network interface and configure the the following rules:
 
 | Application           | Host-Port     | Guest-Port    |
 | --------------------- | ------------- | ------------- |
-| CASSANDRA             | 9042          | 9042          |
 | HTTPD                 | 80            | 80            |
-| KAA                   | 8080          | 8080          |  
 | MARIADB               | 3306          | 3306          |
-| MONGODB               | 27017         | 27017         |
 | MQTT                  | 1883          | 1883          |
-| POSTGRESQL            | 5432          | 5432          |
+| MQTTS                 | 8883          | 8883          |
 | SSH                   | 2222          | 22            |
-| TOMCAT                | 8181          | 8181          |
+| TOMCAT                | 8080          | 8080          |
 
 Now you can download the Ubuntu Server from https://www.ubuntu.com/download/server. Mount 
 the image in the virtual machine and power up. Run the installer with your favorite setting.
@@ -67,13 +64,13 @@ Login in the server (via ssh) with your admin account and execute the following 
     by add the following lines
     ```
     # IoT Servers
-    [iotservers]
+    [showcase]
     localhost
     ```
 
 1. Testing the configuration (optional)
     ```bash
-    $ ansible iotservers -m ping
+    $ ansible showcase -m ping
     ```
     The result look like that
     ```
