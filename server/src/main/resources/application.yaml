@@ -26,6 +26,8 @@ spring:
     console:
       enabled: true
       path: /console/
+      settings:
+        web-allow-others: false
 
   # JPA
   jpa:
